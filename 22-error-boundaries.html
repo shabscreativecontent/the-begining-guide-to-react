@@ -1,0 +1,62 @@
+<body>
+   <div id="root"></div>
+   <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+   <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+   <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
+   <script src="https://unpkg.com/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+   <script src="https://unpkg.com/react-error-boundary@1.2.5/dist/umd/react-error-boundary.js"></script>
+   <script>
+      const ErrorBoundary = ReactErrorBoundary.ErrorBoundary 
+      
+      // class ErrorBoundary extends React.component {
+      //    state = {error: null}
+      //    static getDerivedStateFromError(error){
+      //       return {error}
+      //    }
+
+      //    render() {
+      //       const {error} = this.state
+      //       if(error){
+      //          return <this.props.FallBackComponent error={error} />
+      //       }
+      //       return this.props.children
+      //    }
+      // }
+
+      function ErrorFallBack({error}){
+         return(
+            <div>
+               <p>Something when worng:</p>
+               <pre>{error.message}</pre>
+            </div>
+         )
+      }
+
+      function Bomb(){
+         throw new Error('💥 CABOOM 💥')
+      }
+
+      function App(){
+         const [explode, setExplode] = React.useState(false)
+
+         return (
+            <ErrorBoundary FallBackComponent={ErrorFallBack}>
+            <div>
+               <div>
+                  <button onClick={() => setExplode(true)}>💣</button>
+               </div>
+               <div>
+                  <ErrorBoundary 
+                     FallBackComponent={ErrorFallBack}>
+                     {explode ? <Bomb /> : 'Push the button Max!'}
+                  </ErrorBoundary>
+               </div>
+            </div>
+            </ErrorBoundary>
+         )
+      }
+
+      ReactDOM.render(<App />, document.getElementById('root'))
+   </script>
+</body>

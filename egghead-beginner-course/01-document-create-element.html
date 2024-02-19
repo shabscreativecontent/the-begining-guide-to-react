@@ -1,0 +1,787 @@
+<body>
+   <div id="root"></div>
+   <!-- <script src="https://unpkg.com/react@16.7.0/umd/react.production.min.js"></script>
+   <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js"></script> -->
+   <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+   <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+   <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
+   <script src="https://unpkg.com/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+   <script src="https://unpkg.com/react-error-boundary@1.2.5/dist/umd/react-error-boundary.js"></script>
+   <script src="https://unpkg.com/msw@0.20.5/lib/umd/index.js"></script>
+   <style>
+      .tilt-root {
+      height: 150px;
+      background-color: red;
+      width: 200px;
+      background-image: -webkit-linear-gradient(
+        315deg,
+        #ff00ba 0%,
+        #fae713 100%
+      );
+      background-image: linear-gradient(135deg, #ff00ba 0%, #fae713 100%);
+      transform-style: preserve-3d;
+      will-change: transform;
+      transform: perspective(1000px) rotateX(0deg) rotateY(0deg)
+        scale3d(1, 1, 1);
+    }
+    .tilt-child {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translateZ(30px) translateX(-50%) translateY(-50%);
+      box-shadow: 0 0 50px 0 rgba(51, 51, 51, 0.3);
+      background-color: white;
+    }
+    .totally-centered {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+   </style>
+   <script type="text/babel">
+      
+      // const children = "Hello World!"
+      // const myWorld = " How are you doing?"
+      // const className = "container"
+      // const props = {children, className}
+
+      // // const element = <div className={className}>{children}{myWorld}</div>
+      // // const element = <div className={className}>
+      // //    <span>Hello <strong>World!!!</strong></span>
+      // // </div>
+      // // const element = <div className={className} children={children}/>
+      // // const element = <div {...props} />
+      // const element = <div id="app-root" {...props} className="non-container" />
+
+      // ReactDOM.render(element, rootElement)
+
+
+
+
+
+      // const element = <div className="container">Hello World!</div>
+
+      // const element = (
+
+      //    //Before
+      //    // <React.Fragment>
+      //    //    <span>Hello</span> <span>World!</span>   
+      //    // </React.Fragment>
+
+      //    // Now
+      //    <>
+      //       <span>Hello</span> <span>World!</span>   
+      //    </>
+      // )
+
+      // const helloElement = React.createElement('span', null, "Hello")
+      // const worldElement = React.createElement('span', null, "World!")
+      // const element = React.createElement(
+      //    React.Fragment, 
+      //    null, 
+      //    helloElement,
+      //    " ",
+      //    worldElement
+      // )
+      
+      // const message = <div className="message">Hello World</div>
+      // const Mesage = (props) => <div className="message">{props.msg}</div>
+      // const Message = props => <div className="message">{props.children}</div>
+
+      // const element = (
+      //    <div className="container">
+      //       {Mesage({msg: "Hello World!"})}
+      //       {Mesage({msg: "Goodbye World."})}
+      //       <Mesage msg="Hello WOrld" />
+      //       <Mesage msg="GoodBye WOrld" />
+      //       <Message>Hello WOrlD</Message>
+      //       <Message children="Hello WOrlD1" />
+
+      //       <Message>
+      //          HELLO WOrlD
+      //          <Message>GOODbye WOrlD</Message>
+      //          <span>Hello Planta</span>
+      //       </Message>
+      //    </div>
+      // )
+      // console.log(<Message>Hello World</Message>);
+      // console.log(<div>Hello world!</div>);
+
+      // const rootElement = document.getElementById("root")
+
+      // function SayHello({firstName, lastName}){
+      //    return (
+      //       <div>
+      //          Hello {firstName} {lastName}!
+      //       </div>
+      //    )
+      // }
+
+      // // const PropTypes = {
+      // //    string(props, propName, ComponentName){
+      // //       if(typeof props[propName] !== "string"){
+      // //          return new Error(`
+      // //          Hey, the conponent ${ComponentName} needs the prop ${propName} to be a string, but you passed a ${typeof props[propName]}
+      // //          `)
+      // //       }
+      // //    }
+      // // }
+
+      // SayHello.propTypes = {
+      //    firstName: PropTypes.string.isRequired,
+      //    lastName: PropTypes.string.isRequired,
+      // }
+
+      // const element = <SayHello firstName={false} />
+
+      // function CharacterCount({text}){
+      //    const length = text.length ? <strong>{text.length}</strong> : "No"
+
+      //    return (
+      //       <div>
+      //          {`The text "${text}" has`} 
+      //          {length} 
+      //          {text.length ? "Charaters" : "Character"}
+      //       </div>
+      //    )
+      // }
+
+      // const element = (
+      //    <>
+      //       <CharacterCount text="Hello World" />
+      //       <CharacterCount text="" />
+      //    </>
+      // )
+
+      // function tick() {
+      //    const time = new Date().toLocaleTimeString()
+      //    const element = (
+      //       <div>
+      //          <input value={time} />
+      //          <input value={time} />   
+      //       </div>
+      //    )
+
+      //    ReactDOM.render(element, document.getElementById('root'))
+      // }
+
+      // tick()
+      // setInterval(tick, 1000)
+      
+      // function Box({className = '', style, size, ...rest}){
+      //    const sizeClassName = size ? `box--${size}` : ''
+
+      //    // return <div 
+      //    //    className={`box ${className} ${sizeClassName}`} 
+      //    //    style={{ fontStyle: "italic", ...style }} 
+      //    //    {...rest}
+      //    // />
+
+      //    // OR
+
+      //    const props = {
+      //       className: `box ${className} ${sizeClassName}`,
+      //       style: { fontStyle: "italic", ...style } ,
+      //       ...rest
+      //    }
+
+      //    return <div {...props} />
+      // }
+
+      // const element = (
+      //    <div>
+      //       <Box 
+      //       size="small" 
+      //       style={{backgroundColor: "lightblue"}}>
+      //       small lightblue box
+      //       </Box>
+      //       <Box 
+      //       size="medium" 
+      //       style={{backgroundColor: "pink"}}>
+      //       small lightblue box
+      //       </Box>
+      //       <Box 
+      //       className="box--large" 
+      //       style={{backgroundColor: "orange"}}>
+      //       small lightblue box
+      //       </Box>
+      //    </div>
+         
+      // )
+
+      // const state = {eventCount: 0, username: ''}
+
+      // function App() {
+
+      //    function handleClick(){
+      //       setState({eventCount: state.eventCount + 1})
+      //    }
+      //    function handleChange(event){
+      //       setState({username: event.target.value})
+      //    }
+
+      //    return (
+      //       <div>
+      //          <p>There have been {state.eventCount} events.</p>
+      //          <p>
+      //             <button onClick={handleClick} id="button">Click Me</button>
+      //          </p>
+      //          <p>You typed: {state.username}</p>
+      //          <p>
+      //             <input onChange={handleChange} id="name"/>
+      //          </p>
+      //       </div>
+      //    )
+      // }
+
+      // function setState(newState){
+      //    Object.assign(state, newState)
+      //    renderApp()
+      // }
+
+      // function renderApp(){
+      //    ReactDOM.render(<App />, document.getElementById('root'))
+      // }
+
+      // renderApp()
+
+      // function useLocalStorageState(key, defaultValue = ''){
+      //    const [state, setState] = React.useState(() => {
+      //       // console.log("hello")
+      //       window.localStorage.getItem(key) || defaultValue
+      //    })
+      //    // console.log("rendered");
+
+      //    React.useEffect(()=>{
+      //       window.localStorage.setItem(key, state)
+      //    }, [key, state])
+
+      //    return [state, setState] 
+      // }
+
+      // function Greeting(){
+      //    const [name, setName] = useLocalStorageState('name')
+         
+      //    const handleChange = event => setName(event.target.value)
+
+      //    return (
+      //       <div>
+      //          <form>
+      //             <label htmlFor="name">Name:</label>
+      //             <input value={name} onChange={handleChange} id="name"/>
+      //          </form>
+      //          {name ? <strong>Hello {name}</strong> : "please type your name"}
+      //       </div>
+      //    )
+      // }
+
+      // function App(){
+      //    const [count, setCount] = React.useState(0)
+      //    return (
+      //       <>
+      //          <button onClick={() => setCount(c => c + 1)}>{count}</button>
+      //          <Greeting />
+      //       </>
+      //    )
+      // }
+
+      // function Tilt({children}){
+      //    const tiltRef = React.useRef()
+
+      //    React.useEffect(() => {
+      //       // console.log(tiltRef);
+      //       const tiltNode = tiltRef.current
+      //       const vanillaTiltOptions = {
+      //          max: 25,
+      //          speed: 400,
+      //          glare: true,
+      //          'max-glare': 0.5,
+      //       }
+      //       VanillaTilt.init(tiltNode, vanillaTiltOptions)
+      //       return () => {
+      //          tiltNode.VanillaTilt.destroy()
+      //       }
+      //    }, [])
+
+      //    return (
+      //       <div ref={tiltRef} className="tilt-root">
+      //          <div className="tilt-child">{children}</div>
+      //       </div>
+      //    )
+      // }
+
+      // function App(){
+      //    const [showTilt, setShowTilt] = React.useState(true)
+      //    return (
+      //       <div>
+      //          <label>
+      //             <input 
+      //             type="checkbox"
+      //             checked={showTilt}
+      //             onChange={e => setShowTilt(e.target.checked)}/>{' '}
+      //             Show tilt
+      //          </label>
+      //          {showTilt ? (
+      //             <Tilt>
+      //               <div className="totally-centered">vanilla-tilt.js</div>
+      //             </Tilt>
+      //          ) : null}
+      //       </div>
+      //    )
+      // }
+
+   //    function Child(){
+   //       console.log('%c Child: render start', 'color: MediumSpringGreen')
+
+   //       const [count, setCount] = React.useState(() => {
+   //          console.log('%c Child: useState callback', 'color: tomato')
+   //          return 0
+   //       })
+
+   //       React.useEffect(()=>{
+   //          console.log('%c Child: useEffect no deps', 'color: LightCoral')
+   //          return () => {
+   //             console.log('%c Child: useEffect no deps cleanup', 'color: LightCoral');
+   //          }
+   //       })
+
+   //       React.useEffect(() => {
+   //      console.log(
+   //        '%c    Child: useEffect empty deps',
+   //        'color: MediumTurquoise',
+   //      )
+   //      return () => {
+   //        console.log(
+   //          '%c    Child: useEffect empty deps cleanup',
+   //          'color: MediumTurquoise',
+   //        )
+   //      }
+   //    }, [])
+
+   //    React.useEffect(() => {
+   //      console.log('%c    Child: useEffect with dep', 'color: HotPink')
+   //      return () => {
+   //        console.log(
+   //          '%c    Child: useEffect with dep cleanup',
+   //          'color: HotPink',
+   //        )
+   //      }
+   //    }, [count])
+
+   //    const element = (
+   //      <button onClick={() => setCount(previousCount => previousCount + 1)}>
+   //        {count}
+   //      </button>
+   //    )
+
+   //    console.log('%c    Child: render end', 'color: MediumSpringGreen')
+
+   //    return element
+   //  }
+
+   //    function App() {
+   //       console.log('%cApp: render start', 'color: MediumSpringGreen')
+
+   //       const [showChild, setShowChild] = React.useState(() => {
+   //         console.log('%cApp: useState callback', 'color: tomato')
+   //         return false
+   //       })
+
+   //       React.useEffect(() => {
+   //         console.log('%cApp: useEffect no deps', 'color: LightCoral')
+   //         return () => {
+   //           console.log('%cApp: useEffect no deps cleanup', 'color: LightCoral')
+   //         }
+   //       })
+
+   //       React.useEffect(() => {
+   //         console.log('%cApp: useEffect empty deps', 'color: MediumTurquoise')
+   //         return () => {
+   //           console.log(
+   //          '%cApp: useEffect empty deps cleanup',
+   //             'color: MediumTurquoise',
+   //           )
+   //         }
+   //       }, [])
+
+   //       React.useEffect(() => {
+   //         console.log('%cApp: useEffect with dep', 'color: HotPink')
+   //         return () => {
+   //           console.log('%cApp: useEffect with dep cleanup', 'color: HotPink')
+   //      }
+   //       }, [showChild])
+
+   //       const element = (
+   //         <>
+   //           <label>
+   //             <input
+   //               type="checkbox"
+   //               checked={showChild}
+   //               onChange={e => setShowChild(e.target.checked)}
+   //             />{' '}
+   //             show child
+   //           </label>
+   //           <div
+   //             style={{
+   //               padding: 10,
+   //               margin: 10,
+   //               height: 30,
+   //               width: 30,
+   //               border: 'solid',
+   //             }}
+   //           >
+   //             {showChild ? <Child /> : null}
+   //           </div>
+   //         </>
+   //       )
+
+   //       console.log('%cApp: render end', 'color: MediumSpringGreen')
+
+   //       return element
+   //    }
+
+      // function UsernameForm(){
+      //    // const usernameInput = React.useRef()
+      //    const [username, setUsername] = React.useState('')
+
+      //    function handleSubmit(e){
+      //       e.preventDefault()
+      //       // console.dir(e.target);
+
+      //       // const username = document.querySelector('input').value
+      //       // const username = e.target[0].value
+      //       // const username = e.target.element[0].value
+      //       // const username = e.target.element.usernameInput.value
+      //       // const username = usernameInputRef.current.value
+
+      //       alert(`You entered: ${username}`)
+      //    }
+
+      //    function handleChange(e){
+      //       setUsername(e.target.value.toLowerCase())
+      //    }
+
+      //    return (
+      //       <form onSubmit={handleSubmit}>
+      //          <div>
+      //             <label htmlFor="usernameInput">Username:</label>
+      //             <input
+      //                type="text" id="usernameInput" 
+      //                onChange={handleChange}
+      //                value={username}/>
+      //          </div>
+               
+      //          <button type="submit">Submit</button>
+      //       </form>
+      //    )
+      // }
+
+      
+      // const ErrorBoundary = ReactErrorBoundary.ErrorBoundary 
+      
+      // // class ErrorBoundary extends React.component {
+      // //    state = {error: null}
+      // //    static getDerivedStateFromError(error){
+      // //       return {error}
+      // //    }
+
+      // //    render() {
+      // //       const {error} = this.state
+      // //       if(error){
+      // //          return <this.props.FallBackComponent error={error} />
+      // //       }
+      // //       return this.props.children
+      // //    }
+      // // }
+
+      // function ErrorFallBack({error}){
+      //    return(
+      //       <div>
+      //          <p>Something when worng:</p>
+      //          <pre>{error.message}</pre>
+      //       </div>
+      //    )
+      // }
+
+      // function Bomb(){
+      //    throw new Error('💥 CABOOM 💥')
+      // }
+
+      // function App(){
+      //    const [explode, setExplode] = React.useState(false)
+
+      //    return (
+      //       <ErrorBoundary FallBackComponent={ErrorFallBack}>
+      //       <div>
+      //          <div>
+      //             <button onClick={() => setExplode(true)}>💣</button>
+      //          </div>
+      //          <div>
+      //             <ErrorBoundary 
+      //                FallBackComponent={ErrorFallBack}>
+      //                {explode ? <Bomb /> : 'Push the button Max!'}
+      //             </ErrorBoundary>
+      //          </div>
+      //       </div>
+      //       </ErrorBoundary>
+      //    )
+      // }
+
+      // const allItems = [
+      //    {id: 'a', value: 'apple'},
+      //    {id: 'o', value: 'orange'},
+      //    {id: 'g', value: 'grape'},
+      //    {id: 'p', value: 'pear'}
+      // ]
+
+      // function App(){
+      //    const [items, setItems] = React.useState(allItems)
+
+      //    function addItem(){
+      //       setItems([...items, allItems.find(i => !items.includes(i))])
+      //    }
+
+      //    function removeItem(item){
+      //       setItems(items.filter(i => i !== item))
+      //    }
+
+      //    return(
+      //       <div>
+      //          <button disabled={items.length >= allItems.length} onClick={addItem}>
+      //          add item
+      //          </button>
+      //          <ul style={{listStyle: 'none', paddingLeft: 0}}>
+      //          {items.map(item => (
+      //             <li key={item.id}>
+      //                <button onClick={() => removeItem(item)}>remove</button>{' '}
+      //                <label htmlFor={`${item.value}-input`}>{item.value}</label>{' '}
+      //                <input id={`${item.value}-input`} defaultValue={item.value} />
+      //             </li>
+      //          ))}
+      //          </ul>
+      //       </div>
+      //    )
+      // }
+
+      // function Name({name, onNameChange}){
+      //    return (
+      //       <div>
+      //          <label>Name: </label>
+      //          <input value={name} onChange={onNameChange} />
+      //       </div>
+      //    )
+      // }
+
+      // function FavoriteAnimal({animal, onAnimalChange}){
+      //    return (
+      //       <div>
+      //          <label>Favorite Animal: </label>
+      //          <input value={animal}
+      //          onChange={onAnimalChange} />
+      //       </div>
+      //    )
+      // }
+
+      // function Display({name, animal}){
+      //    return <div>{`Hey ${name}, your favorite aninal is ${animal}`}</div>
+      // }
+
+      // function App(){
+      //    const [name, setName] = React.useState('')
+      //    const [animal, setAnimal] = React.useState('')
+
+      //    return (
+      //       <form>
+      //          <Name 
+      //          name={name}
+      //          onNameChange={e => setName(e.target.value)} />
+      //          <FavoriteAnimal 
+      //          animal={animal}
+      //          onAnimalChange={e => setAnimal(e.target.value)} />
+      //          <Display name={name} animal={animal} />
+      //       </form>
+      //    )
+      // }
+
+      function PokemonInfo({pokemonName}){
+         const [status, setStatus] = React.useState('idle')
+         const [pokemon, setPokemon] = React.useState(null)
+         const [error, setError] = React.useState(null)
+
+         React.useEffect(() => {
+            if (!pokemonName){
+               return
+            }
+
+            setStatus('pending')
+
+            fetchPokemon(pokemonName).then(pokemonData => {
+               setStatus('resolved')
+               setPokemon(pokemonData)
+            },
+            errorData => {
+               setStatus('rejected')
+               setError(errorData)
+            })
+         }, [pokemonName])
+
+         if(status === 'idle'){
+            return "Submit a pokemon"
+         }
+
+         if (status === 'rejected') {
+            return "Oh no..."
+         }
+
+         if(status === "pending"){
+            return '...'
+         }
+
+         if (status === "resolved") {
+            return <pre>{JSON.stringify(pokemon, null, 2)}</pre>
+         }
+      }
+
+      function App(){
+         const [pokemonName, setPokemonName] = React.useState('')
+
+         function handleSubmit(e){
+            e.preventDefault()
+            setPokemonName(e.target.elements.pokemonName.value)
+         }
+
+         return (
+            <div>
+               <form onSubmit={handleSubmit}>
+                  <label htmlFor="pokemonName">Pokemon Name</label>
+                  <input id="pokemonName" />
+                  <button type="submit" >Submit</button>
+               </form>
+               <hr />
+               <PokemonInfo pokemonName={pokemonName} />
+            </div>
+         )
+      }
+
+      function fetchPokemon(name){
+         const pokemonQuery = `
+            query ($name: String) {
+               pokemon(name: $name) {
+                  id
+                  number
+                  name
+                  attacks {
+                     special {
+                        name
+                        type
+                        damage
+                     }
+                  }
+               }
+            }
+         `
+         return window
+            .fetch('https://graphql-pokemon.vercel.app/', {
+               method: 'POST',
+               headers: {
+                  'content-type': 'application/json;charset=UTF-8'
+               },
+               body: JSON.stringify({
+                  query: pokemonQuery,
+                  variables: {name},
+               }),
+            })
+            .then(r => r.json())
+            .then(response => response.data.pokemon)
+      }
+
+      
+
+      ReactDOM.render(<App />, document.getElementById('root'))
+   </script>
+
+   <!-- <script src="text/javascript">
+      // const element = React.createElement('div', {
+      //    // children: "Hello world",
+      //    children: ['Hello World', ", Good Morning"],
+      //    // chiidren: React.createElement('span', null, "Hello", "World"), // < doesn't work anymore >
+      //    className: "container"
+      // },
+      // // "Hello world",
+      // // ", Good evening"
+      // )
+      // console.log(element);
+      // ReactDOM.render(element, rootElement)
+
+      // const element = document.createElement('div')
+      // element.textContent = 'Hello World'
+      // element.className = 'container'
+      // rootElement.appendChild(element)
+   </script> -->
+   
+   <!-- <script type="text/babel">
+      function FocusDemo() {
+        const [items, setItems] = React.useState([
+          {id: 'a', value: 'apple'},
+          {id: 'o', value: 'orange'},
+          {id: 'g', value: 'grape'},
+          {id: 'p', value: 'pear'},
+        ])
+  
+        React.useEffect(() => {
+          const interval = setInterval(() => {
+            setItems(shuffle(items))
+          }, 1000)
+          return () => clearInterval(interval)
+        }, [])
+  
+        return (
+          <div>
+            <div>
+              <h1>Without Key</h1>
+              {items.map(item => (
+                <input value={item.value} />
+              ))}
+            </div>
+            <div>
+              <h1>With Key as Index</h1>
+              {items.map((item, index) => (
+                <input key={index} value={item.value} />
+              ))}
+            </div>
+            <div>
+              <h1>With Key</h1>
+              {items.map(item => (
+                <input key={item.id} value={item.value} />
+              ))}
+            </div>
+          </div>
+        )
+      }
+  
+      function shuffle(originalArray) {
+        const array = [...originalArray]
+        let currentIndex = array.length
+        let temporaryValue
+        let randomIndex
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex)
+          currentIndex -= 1
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex]
+          array[currentIndex] = array[randomIndex]
+          array[randomIndex] = temporaryValue
+        }
+        return array
+      }
+      // uncomment this line to demo:
+      ReactDOM.render(<FocusDemo />, document.getElementById('root'))
+    </script> -->
+</body>

@@ -1,0 +1,28 @@
+<body>
+   <div id="root"></div>
+   <script>
+      // The text "Hello world" has 11 Characters
+      // The text "" has 0 Character
+      
+      function CharacterCount({text}){
+         const length = text.length ? <strong>{text.length}</strong> : "No"
+
+         return (
+            <div>
+               {`The text "${text}" has`} 
+               {length} 
+               {text.length ? "Charaters" : "Character"}
+            </div>
+         )
+      }
+
+      const element = (
+         <>
+            <CharacterCount text="Hello World" />
+            <CharacterCount text="" />
+         </>
+      )
+
+      ReactDOM.render(element, document.getElementById('root'))
+   </script>
+</body>

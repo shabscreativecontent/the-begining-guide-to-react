@@ -1,0 +1,33 @@
+<body>
+   <div id="root"></div>
+   <script>
+      const rootElement = document.getElementById("root")
+
+      function SayHello({firstName, lastName}){
+         return (
+            <div>
+               Hello {firstName} {lastName}!
+            </div>
+         )
+      }
+
+      // const PropTypes = {
+      //    string(props, propName, ComponentName){
+      //       if(typeof props[propName] !== "string"){
+      //          return new Error(`
+      //          Hey, the conponent ${ComponentName} needs the prop ${propName} to be a string, but you passed a ${typeof props[propName]}
+      //          `)
+      //       }
+      //    }
+      // }
+      
+      SayHello.propTypes = {
+         firstName: PropTypes.string.isRequired,
+         lastName: PropTypes.string.isRequired,
+      }
+      
+      const element = <SayHello firstName={false} />
+
+      ReactDOM.render(element, rootElement)
+   </script>
+</body>

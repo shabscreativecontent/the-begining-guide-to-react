@@ -1,0 +1,33 @@
+<body>
+   <div id="root"></div>
+   <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+   <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+   <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
+   <script>
+      // const message = <div className="message">Hello World</div>
+      const Mesage = (props) => <div className="message">{props.msg}</div>
+      const Message = props => <div className="message">{props.children}</div>
+
+      const element = (
+         <div className="container">
+            {Mesage({msg: "Hello World!"})}
+            {Mesage({msg: "Goodbye World."})}
+            <Mesage msg="Hello WOrld" />
+            <Mesage msg="GoodBye WOrld" />
+            <Message>Hello WOrlD</Message>
+            <Message children="Hello WOrlD1" />
+
+            <Message>
+               HELLO WOrlD
+               <Message>GOODbye WOrlD</Message>
+               <span>Hello Planta</span>
+            </Message>
+         </div>
+      )
+      // console.log(<Message>Hello World</Message>);
+      // console.log(<div>Hello world!</div>);
+
+      ReactDOM.render(element, document.getElementById('root'))
+   </script>
+</body>

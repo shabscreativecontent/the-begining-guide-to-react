@@ -1,0 +1,35 @@
+<body>
+   <div id="root"></div>
+   <script>
+      function Greeting(){
+         // const stateArry = React.uesState('')
+         // const name = stateArry[0]
+         // const setName = stateArry[1]
+
+         // OR
+
+         const [name, setName] = React.useState(() => {
+            console.log("hello")
+            return window.localStorage.getItem('name') || ''
+         })
+         console.log("rendered");
+
+         React.useEffect(()=>{
+            window.localStorage.setItem('name', name)
+         })
+         const handleChange = event => setName(event.target.value)
+
+         return (
+            <div>
+               <form>
+                  <label htmlFor="name">Name:</label>
+                  <input value={name} onChange={handleChange} id="name"/>
+               </form>
+               {name ? <strong>Hello {name}</strong> : "please type your name"}
+            </div>
+         )
+      }
+
+      ReactDOM.render(<Greeting />, document.getElementById('root'))   
+   </script>
+</body>
